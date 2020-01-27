@@ -28,36 +28,66 @@ export default class Game {
     activePiece = {
         x: 0,
         y: 0,
-        blocks:
-        [
-        [0,1,0],
-        [1,1,1],
-        [0,0,0],
+        get blocks() {
+            return this.rotations[this.rotationIndex];
+        },
+        rotationIndex: 0,
+        rotations: [
+            [
+                [0,1,0],
+                [1,1,1],
+                [0,0,0],
+            ],
+            [
+                [0,1,0],
+                [0,1,1],
+                [0,1,0],
+            ],
+            [
+                [0,0,0],
+                [1,1,1],
+                [0,1,0],
+            ],
+            [
+                [0,1,0],
+                [1,1,0],
+                [0,1,0],
+            ],
         ]
+
     };
     movePieceLeft() {
         this.activePiece.x -= 1;
-        if (this.ifPieceOutOfBounds()) {
+        if (this.hasCollision()) {
             this.activePiece.x += 1;
         }
     }
 
     movePieceRight() {
         this.activePiece.x += 1;
-        if (this.ifPieceOutOfBounds()) {
+        if (this.hasCollision()) {
             this.activePiece.x -= 1;
         }
     }
 
     movePieceDown() {
         this.activePiece.y += 1;
-        if (this.ifPieceOutOfBounds()) {
+        if (this.hasCollision()) {
             this.activePiece.y -= 1;
             this.lockPiece();
         }
     }
 
-    ifCollision() {
+    rotatePiece() {
+        this.activePiece.rotationIndex = this.activePiece.rotationIndex < 3 ? this.activePiece.rotationIndex + 1 : 0;
+        console.log(this.hasCollision())
+        if (this.hasCollision()) {
+            this.activePiece.rotationIndex > 0 ? this.activePiece.rotationIndex - 1 : 3;
+        }
+        return this.activePiece.blocks;
+    }
+
+    hasCollision() {
         const { y: pieceY, x: pieceX, blocks } = this.activePiece;
 
         for (let y = 0; y < blocks.length; y++) {
