@@ -15,6 +15,15 @@ export default class View {
         this.blockHight = this.height / rows;
     }
 
+    render({playfield}) {
+        this.clearScreen();
+        this.renderPlayfield(playfield)
+    }
+
+    clearScreen() {
+        this.context.clearRect(0, 0, this.width, this.height);
+    }
+
     renderPlayfield(playfield) {
         for (let y = 0; y < playfield.length; y++) {
             const line = playfield[y];
@@ -29,9 +38,7 @@ export default class View {
 
                     this.context.fillRect(x * this.blockWidth, y * this.blockHight, this.blockWidth, this.blockHight);
                 }
-            }
-            
+            }   
         }
     }
-
 }
