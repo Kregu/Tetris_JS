@@ -1,4 +1,13 @@
 export default class View {
+    static colors = {
+        '1': 'cyan',
+        '2': 'blue',
+        '3': 'orange',
+        '4': 'yellow',
+        '5': 'green',
+        '6': 'purple',
+        '7': 'red'
+    };
     constructor(element, width, height, rows, columns) {
         this.element = element;
         this.width = width;
@@ -32,14 +41,13 @@ export default class View {
                 const block = line[x];
                 
                 if (block) {
-                    this.renderBlock(x * this.blockWidth, y * this.blockHight, this.blockWidth, this.blockHight, 'red');
- 
+                    this.renderBlock(x * this.blockWidth, y * this.blockHight, this.blockWidth, this.blockHight, View.colors[block]);
                 }
             }   
         }
     }
     renderBlock(x, y, width, height, color){
-        this.context.fillStyle = 'red';
+        this.context.fillStyle = color;
         this.context.strokeStyle = 'black';
         this.context.lineWidth = 2;
 
