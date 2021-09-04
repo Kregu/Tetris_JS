@@ -93,6 +93,10 @@ export default class Controller {
                 this.game.movePieceDown();
                 this.updateView();
                 break;
+            case 32: // DOWN Space
+                this.game.dropPiece();
+                this.updateView();
+                break;
         }
     }
 

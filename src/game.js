@@ -53,6 +53,7 @@ export default class Game {
         this.playfield = this.createPlayfield();
         this.activePiece = this.createPiece();
         this.nextPiece = this.createPiece();
+        this.collision = false
     }
 
     createPlayfield() {
@@ -166,10 +167,19 @@ export default class Game {
             const clearedLines = this.clearLines();
             this.updateScore(clearedLines);
             this.updatePieces();
+            this.collision = true;
+        } else {
+            this.collision = false;
         }
 
         if (this.hasCollision()) {
             this.topOut = true;
+        }
+    }
+
+    dropPiece() {
+        while (!this.collision) {
+           this.movePieceDown()
         }
     }
 
